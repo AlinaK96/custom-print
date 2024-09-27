@@ -1,0 +1,63 @@
+{
+  "Name": "Мой кастомный компонент",
+  "Type": "custom-print",
+  "Properties": [
+    {
+      "Name": "ItemsWayList",
+      "Type": "group",
+      "Caption": "Тип путевого листа",
+      "Properties": [
+        {
+          "Name": "ItemsDataSourceName",
+          "Type": "datasource-selector",
+          "Caption": "Тип путевого листа",
+          "Required": false
+        }
+      ]
+    }
+  ],
+  "AvailableValidators": [
+    "required",
+    "regExp"
+  ],
+  "AvailableActions": [
+    "ChangeProperty",
+    "SetVariable",
+    "SetValidator",
+    "DeleteValidator",
+    "ExecuteScript",
+    "ExecuteQuery",
+    "ExecuteFunction",
+    "OpenForm",
+    "CloseForm",
+    "Redirect",
+    "Update",
+    "SetDataSourceFilter",
+    "SetDataSourceSorting",
+    "SetDataSourcePagination",
+    "AddItems",
+    "DeleteItems",
+    "UpdateItems",
+    "ShowLoader",
+    "HideLoader",
+    "ShowMessage",
+    "SendLayoutEvent"
+  ],
+  "GenerateEvents": [
+    "Show",
+    "Hide",
+    {
+      "Event": "Change",
+      "Payload": {
+        "Type": "string"
+      }
+    },
+    "Enable",
+    "Disable",
+    "DataLoaded",
+    "DataLoadingError"
+  ],
+  "UseDataSource": true,
+  "IsFormControl": true,
+  "IsContainer": false
+}
