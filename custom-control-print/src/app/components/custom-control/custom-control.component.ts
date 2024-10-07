@@ -27,10 +27,16 @@ export class MapCustomControl extends BaseFormControlWebComponent<string> {
 
   PageForm = new FormControl('1')
   selectedVariant = new FormControl('1')
-  selectedSide: number = 1
-  wayList: number = 4
+  selectedSide: string = '1'
+  wayList: number
+
+  itemWayData: any;
+  shiftDay: string = '';
+  shiftMonth: string = '';
+  shiftYear: string = '';
 
   itemsWayList: WebComponentDatasource<unknown>;
+  itemsWayData: WebComponentDatasource<unknown>;
 
   httpClient:HttpClient
 
@@ -38,7 +44,7 @@ export class MapCustomControl extends BaseFormControlWebComponent<string> {
     super(elementRef, renderer);
     this.httpClient = http
     this.itemsWayList = new WebComponentDatasource<unknown>(elementRef.nativeElement, renderer);
-
+    this.itemsWayData = new WebComponentDatasource<unknown>(elementRef.nativeElement, renderer);
   }
 
   ngOnInit(): void {
@@ -46,20 +52,36 @@ export class MapCustomControl extends BaseFormControlWebComponent<string> {
     this.cdr.detectChanges();
     this.itemsWayList.data$.subscribe((value) => {
       if (value && value.Items ) {
-        console.log((value.Items[0] as { wayList: number }).wayList)
         this.wayList = (value.Items[0] as { wayList: number }).wayList;
       }
     });
+
+    this.itemsWayData.data$.subscribe((value) => {
+      if (value && value.Items ) {
+        console.log(value.Items[0])
+        this.itemWayData = value.Items[0]
+
+        const shiftDate = new Date(this.itemWayData.ShiftDate);
+        this.shiftDay = shiftDate.getDate().toString();
+        const month = (shiftDate.getMonth() + 1).toString(); 
+        this.shiftMonth = month.padStart(2, '0');
+        this.shiftYear = shiftDate.getFullYear().toString(); 
+      }
+    });
+
   }
 
   @Input() set ItemsWayList(itemsSetting: IItemsDatasourceSetting) {
     this.itemsWayList.subscribe(itemsSetting.ItemsDataSourceName);
-}
+  }
+
+  @Input() set ItemsWayData(itemsSetting: IItemsDatasourceSetting) {
+    this.itemsWayData.subscribe(itemsSetting.ItemsDataSourceName);
+  }
 
   onPageChange(event: any) {
     this.PageForm.setValue(event.value);
     this.selectedSide = event.value
-    console.log(this.selectedSide)
     this.cdr.detectChanges();
   }
 
@@ -69,7 +91,6 @@ export class MapCustomControl extends BaseFormControlWebComponent<string> {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
-    this.emit('OutOfPrint', null);
     window.location.reload();
   }
 

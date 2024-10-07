@@ -14,6 +14,19 @@
           "Required": false
         }
       ]
+    },
+    {
+      "Name": "ItemsWayData",
+      "Type": "group",
+      "Caption": "Данные путевки",
+      "Properties": [
+        {
+          "Name": "ItemsDataSourceName",
+          "Type": "datasource-selector",
+          "Caption": "Данные путевки",
+          "Required": false
+        }
+      ]
     }
   ],
   "AvailableValidators": [
