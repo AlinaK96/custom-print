@@ -28,14 +28,12 @@ export class MapCustomControl extends BaseFormControlWebComponent<string> {
   PageForm = new FormControl('1')
   selectedVariant = new FormControl('1')
   selectedSide: string = '1'
-  wayList: number
+  // wayList: number
 
-  itemWayData: any;
-  shiftDay: string = '';
-  shiftMonth: string = '';
-  shiftYear: string = '';
+  itemWayDataFull: any;
 
-  itemsWayList: WebComponentDatasource<unknown>;
+
+  // itemsWayList: WebComponentDatasource<unknown>;
   itemsWayData: WebComponentDatasource<unknown>;
 
   httpClient:HttpClient
@@ -43,37 +41,31 @@ export class MapCustomControl extends BaseFormControlWebComponent<string> {
   constructor(elementRef: ElementRef, renderer: Renderer2, mapService: MapService, private http: HttpClient, private cdr: ChangeDetectorRef) {
     super(elementRef, renderer);
     this.httpClient = http
-    this.itemsWayList = new WebComponentDatasource<unknown>(elementRef.nativeElement, renderer);
+    // this.itemsWayList = new WebComponentDatasource<unknown>(elementRef.nativeElement, renderer);
     this.itemsWayData = new WebComponentDatasource<unknown>(elementRef.nativeElement, renderer);
   }
 
   ngOnInit(): void {
 
     this.cdr.detectChanges();
-    this.itemsWayList.data$.subscribe((value) => {
-      if (value && value.Items ) {
-        this.wayList = (value.Items[0] as { wayList: number }).wayList;
-      }
-    });
+    // this.itemsWayList.data$.subscribe((value) => {
+    //   if (value && value.Items ) {
+    //     this.wayList = (value.Items[0] as { wayList: number }).wayList;
+    //   }
+    // });
 
     this.itemsWayData.data$.subscribe((value) => {
       if (value && value.Items ) {
-        console.log(value.Items[0])
-        this.itemWayData = value.Items[0]
-
-        const shiftDate = new Date(this.itemWayData.ShiftDate);
-        this.shiftDay = shiftDate.getDate().toString();
-        const month = (shiftDate.getMonth() + 1).toString(); 
-        this.shiftMonth = month.padStart(2, '0');
-        this.shiftYear = shiftDate.getFullYear().toString(); 
+        console.log(value.Items)
+        this.itemWayDataFull = value.Items
       }
     });
 
   }
 
-  @Input() set ItemsWayList(itemsSetting: IItemsDatasourceSetting) {
-    this.itemsWayList.subscribe(itemsSetting.ItemsDataSourceName);
-  }
+  // @Input() set ItemsWayList(itemsSetting: IItemsDatasourceSetting) {
+  //   this.itemsWayList.subscribe(itemsSetting.ItemsDataSourceName);
+  // }
 
   @Input() set ItemsWayData(itemsSetting: IItemsDatasourceSetting) {
     this.itemsWayData.subscribe(itemsSetting.ItemsDataSourceName);

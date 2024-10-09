@@ -3,19 +3,6 @@
   "Type": "custom-print",
   "Properties": [
     {
-      "Name": "ItemsWayList",
-      "Type": "group",
-      "Caption": "Тип путевого листа",
-      "Properties": [
-        {
-          "Name": "ItemsDataSourceName",
-          "Type": "datasource-selector",
-          "Caption": "Тип путевого листа",
-          "Required": false
-        }
-      ]
-    },
-    {
       "Name": "ItemsWayData",
       "Type": "group",
       "Caption": "Данные путевки",
